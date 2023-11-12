@@ -1,19 +1,33 @@
 import { LitElement, html, css } from "lit";
+import diris from "../data/diris.json";
 
 class TicketForm extends LitElement {
   static get properties() {
     return {
       name: { type: String },
-      plate: { type: String },
-      code: { type: String }
+      plate: { type: String }
     };
   }
 
   static get styles() {
     return css`
-      /* Tus estilos aquí */
-      input, select, button {
-        /* Estilos básicos para los elementos del formulario */
+      p {
+        margin: 0;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .input-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      label, p {
+        color: white;
+        font-size: 1.2rem;
       }
     `;
   }
@@ -22,44 +36,69 @@ class TicketForm extends LitElement {
     super();
     this.name = "";
     this.plate = "";
-    this.code = "";
+    this.dirigente = "";
   }
 
-  // Función para manejar la presentación del formulario
   handleSubmit(e) {
     e.preventDefault();
-    // Aquí podrías emitir un evento con los datos recogidos o procesarlos directamente
-    // this.dispatchEvent(new CustomEvent('form-submitted', { detail: { name: this.name, plate: this.plate, code: this.code } }));
-    // O puedes llamar directamente a un método para generar el ticket, por ejemplo
-    // this.generateTicket();
+    this.dispatchEvent(new CustomEvent("form-submitted", {
+      detail: { name: this.name, plate: this.plate, dirigente: this.dirigente },
+      bubbles: true,
+      composed: true
+    }));
   }
 
-  // Función para manejar la actualización de los valores del formulario
   handleInputChange(e) {
     const { name, value } = e.target;
+    const formEvent = new CustomEvent("data-form", {
+      detail: {
+        from: "TicketForm",
+        message: { [name]: value }
+      },
+      bubbles: true,
+      composed: true
+    });
+    this.dispatchEvent(formEvent);
     this[name] = value;
+  }
+
+  getDiris(data) {
+    return diris.map(diri => html`
+        <option value=${diri[data]}></option>
+      `
+    );
   }
 
   render() {
     return html`
-      <form @submit=${this.handleSubmit}>
-        <label for="name">Nombre:</label>
-        <input id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
+      <form class="form" @submit=${this.handleSubmit}>
+        <div class="input-label">
+          <label for="dirigente">Dirigente:</label>
+          <input required type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
+          <datalist id="diris">
+            ${this.getDiris("name")}
+          </datalist>
+        </div>
 
-        <label for="plate">Plato:</label>
-        <input id="plate" name="plate" type="text" .value=${this.plate} @input=${this.handleInputChange} />
+        <div class="input-label">
+          <label for="name">Nombre:</label>
+          <input required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
+        </div>
 
-        <label for="code">Código:</label>
-        <input id="code" name="code" type="text" .value=${this.code} @input=${this.handleInputChange} />
+        <div class="input-label">
+          <p>Seleccione su plato:</p>
+          <div class="plates">
+            <input required id="chicken" name="plate" type="radio" value="Pollo al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Pollo"} />
+            <label for="chicken">Pollo</label>
+
+            <input id="pork" name="plate" type="radio" value="Lechon al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Lechon"} />
+            <label for="pork">Lechón</label>
+          </div>
+        </div>
 
         <button type="submit">Generar Ticket</button>
       </form>
     `;
-  }
-
-  // Método para generar el ticket, puede llamar a otro componente o realizar una acción
-  generateTicket() {
-    // Logica para generar el ticket con los datos recogidos
   }
 }
 

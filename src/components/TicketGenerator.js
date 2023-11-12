@@ -4,7 +4,9 @@ import JsBarcode from "jsbarcode";
 class TicketGenerator extends LitElement {
   static get properties() {
     return {
-      ticketData: { type: Object }
+      name: { type: String },
+      plate: { type: String },
+      code: { type: Number }
     };
   }
 
@@ -74,21 +76,14 @@ class TicketGenerator extends LitElement {
     });
   }
 
-  updated(changedProperties) {
-    if (changedProperties.has("ticketData")) {
-      const barcode = `PC-${this.ticketData.code}`;
-      this.barcodeGenerator(barcode);
-    }
-  }
-
   render() {
     return html`
       <div class="ticket">
-        <div class="name">${this.ticketData.name}</div>
-        <div class="plate">${this.ticketData.plate}</div>
-        <div class="plate-vt">${this.ticketData.plate}</div>
-        <div class="code">${this.ticketData.code}</div>
-        <div class="code-vt">${this.ticketData.code}</div>
+        <div class="name">${this.name}</div>
+        <div class="plate">${this.plate}</div>
+        <div class="plate-vt">${this.plate}</div>
+        <div class="code">${this.code}</div>
+        <div class="code-vt">${this.code}</div>
         <svg id="barcode" class="barcode"></svg>
       </div>
     `;
