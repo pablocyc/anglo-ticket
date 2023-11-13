@@ -11,7 +11,7 @@ class CountdownTimer extends LitElement {
   constructor() {
     super();
     const date = this.getAttribute("eventDate");
-    this.targetDate = new Date(date).getTime(); // La fecha del evento
+    this.targetDate = new Date(date).getTime();
     this.timeRemaining = { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 

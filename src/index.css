@@ -24,10 +24,12 @@
 }
 
 body {
+  margin: 0;
   background: #2c2d30;
   font-family: Satoshi, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  max-width: 100vw;
 }

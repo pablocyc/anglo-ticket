@@ -20,6 +20,7 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "firebase": "^10.6.0",
     "html2canvas": "^1.4.1",
     "jsbarcode": "^3.11.5",
     "lit": "^3.0.2"

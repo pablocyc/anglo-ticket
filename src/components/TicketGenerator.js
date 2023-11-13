@@ -31,12 +31,25 @@ class TicketGenerator extends LitElement {
         font-size: 0.6rem;
       }
 
+      .name {
+        width: 30%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .plate, .plate-vt {
         font-family: Vandal;
         font-size: 0.8rem;
+        text-align: center;
+      }
+
+      .plate {
+        width: 36%;
       }
 
       .plate-vt {
+        width: 24%;
         transform: rotate(-90deg);
         font-size: 0.6rem;
         color: white;
@@ -53,9 +66,9 @@ class TicketGenerator extends LitElement {
       }
       
       .name { bottom: 6%; left: 3.5%; font-family: Satoshi }
-      .plate { top: 50%; left: 27%; }
-      .plate-vt { bottom: 47%; right: 2.8%; }
-      .code { bottom: 6%; left: 33%; }
+      .plate { top: 50%; left: 25.5%; }
+      .plate-vt { bottom: 46%; right: 2.8%; }
+      .code { bottom: 6%; left: 35%; }
       .code-vt { bottom: 22%; right: 8.5%; }
       .barcode { top: 31%; right: -8.5%; }
 
@@ -66,14 +79,25 @@ class TicketGenerator extends LitElement {
     `;
   }
 
-  barcodeGenerator(data) {
-    JsBarcode(this.shadowRoot.getElementById("barcode"), data, {
+  formatString(str) {
+    const [firstName, lastName] = str.split(" ");
+    const name = firstName[0].toUpperCase() + firstName[1].toLowerCase();
+    return `${name + lastName[0].toUpperCase()}-`;
+  }
+
+  barcodeGenerator(data, diri) {
+    const ticketDiri = this.formatString(diri);
+    const ticketNum = data.padStart(3, "0");
+    const barCode = ticketDiri + ticketNum;
+
+    JsBarcode(this.shadowRoot.getElementById("barcode"), barCode, {
       format: "CODE128",
       lineColor: "#000",
       width: 2,
       height: 28,
       displayValue: false
     });
+    this.code = `#${ticketNum}`;
   }
 
   render() {

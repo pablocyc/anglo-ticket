@@ -29,6 +29,26 @@ class TicketForm extends LitElement {
         color: white;
         font-size: 1.2rem;
       }
+
+      .label-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-left: 0.6rem;
+      }
+
+      .input {
+        border-radius: 1rem;
+        height: 1.7rem;
+        font-family: Satoshi;
+        font-size: 1.1rem;
+        text-align: center;
+        box-shadow: 1px 2px #a7a5a5;
+        border: 1px solid #a7a5a5;
+      }
+
+      .plates {
+        text-align: center;
+      }
     `;
   }
 
@@ -37,6 +57,7 @@ class TicketForm extends LitElement {
     this.name = "";
     this.plate = "";
     this.dirigente = "";
+    this.location = "";
   }
 
   handleSubmit(e) {
@@ -76,20 +97,20 @@ class TicketForm extends LitElement {
     return html`
       <form class="form" @submit=${this.handleSubmit}>
         <div class="input-label">
-          <label for="dirigente">Dirigente:</label>
-          <input required type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
+          <label class="label-title" for="dirigente">Dirigente</label>
+          <input class="input" required type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
           <datalist id="diris">
             ${this.getDiris("name")}
           </datalist>
         </div>
 
         <div class="input-label">
-          <label for="name">Nombre:</label>
-          <input required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
+          <label class="label-title" for="name">Nombre</label>
+          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
         </div>
 
         <div class="input-label">
-          <p>Seleccione su plato:</p>
+          <p class="label-title">Seleccione su plato</p>
           <div class="plates">
             <input required id="chicken" name="plate" type="radio" value="Pollo al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Pollo"} />
             <label for="chicken">Pollo</label>
@@ -97,6 +118,11 @@ class TicketForm extends LitElement {
             <input id="pork" name="plate" type="radio" value="Lechon al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Lechon"} />
             <label for="pork">Lechón</label>
           </div>
+        </div>
+
+        <div class="input-label">
+          <label class="label-title" for="location">Dirección de domicilio</label>
+          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} />
         </div>
 
         <button type="submit">Generar Ticket</button>
