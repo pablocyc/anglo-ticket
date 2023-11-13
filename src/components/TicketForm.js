@@ -41,11 +41,14 @@ class TicketForm extends LitElement {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.dispatchEvent(new CustomEvent("form-submitted", {
-      detail: { name: this.name, plate: this.plate, dirigente: this.dirigente },
-      bubbles: true,
-      composed: true
-    }));
+
+    if (confirm("¿Estás seguro de que quieres generar el ticket?")) {
+      this.dispatchEvent(new CustomEvent("form-submitted", {
+        detail: { name: this.name, plate: this.plate, dirigente: this.dirigente },
+        bubbles: true,
+        composed: true
+      }));
+    }
   }
 
   handleInputChange(e) {

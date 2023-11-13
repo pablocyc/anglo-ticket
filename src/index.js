@@ -1,6 +1,7 @@
 import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
+import html2canvas from "html2canvas";
 
 const ticketElement = document.createElement("ticket-generator");
 const firstChild = document.querySelector("countdown-timer");
@@ -14,3 +15,8 @@ document.addEventListener("data-form", event => {
 document.addEventListener("form-submitted", event => {
   console.log(event.detail);
 });
+
+html2canvas(ticketElement)
+  .then(canvas => {
+    document.body.appendChild(canvas);
+  });

@@ -38,7 +38,7 @@ class TicketGenerator extends LitElement {
 
       .plate-vt {
         transform: rotate(-90deg);
-        font-size: 0.5rem;
+        font-size: 0.6rem;
         color: white;
       }
 
@@ -54,7 +54,7 @@ class TicketGenerator extends LitElement {
       
       .name { bottom: 6%; left: 3.5%; font-family: Satoshi }
       .plate { top: 50%; left: 27%; }
-      .plate-vt { bottom: 47%; right: 4.2%; }
+      .plate-vt { bottom: 47%; right: 2.8%; }
       .code { bottom: 6%; left: 33%; }
       .code-vt { bottom: 22%; right: 8.5%; }
       .barcode { top: 31%; right: -8.5%; }
