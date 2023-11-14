@@ -20,7 +20,7 @@ class TicketGenerator extends LitElement {
 
       .ticket {
         position: relative;
-        background-image: url("../images/ticket.svg");
+        background-image: url("images/ticket.svg");
         background-repeat: no-repeat;
         background-origin: content-box;
         background-size: var(--width-image) var(--height-image);
