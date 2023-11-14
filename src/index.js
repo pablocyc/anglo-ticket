@@ -1,3 +1,4 @@
+import { buyTicket } from "./modules/firebase.js";
 import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
@@ -11,8 +12,13 @@ document.addEventListener("data-form", event => {
   ticketElement[Object.keys(message)] = Object.values(message)[0];
 });
 
-document.addEventListener("form-submitted", event => {
+document.addEventListener("form-submitted", async event => {
   const msgForm = event.detail;
-  console.log(msgForm);
-  ticketElement.barcodeGenerator("1", msgForm.dirigente);
+  try {
+    const ticketNumber = await buyTicket(msgForm);
+
+    ticketElement.barcodeGenerator(ticketNumber.toString(), msgForm.dirigente);
+  } catch (error) {
+    console.error("Error al generar el ticket: ", error);
+  }
 });

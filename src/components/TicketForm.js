@@ -42,12 +42,43 @@ class TicketForm extends LitElement {
         font-family: Satoshi;
         font-size: 1.1rem;
         text-align: center;
-        box-shadow: 1px 2px #a7a5a5;
-        border: 1px solid #a7a5a5;
+        box-shadow: 0 2px #a7a5a5;
+        border: 1.5px solid #a7a5a5cc;
       }
 
       .plates {
         text-align: center;
+      }
+
+      button {
+        cursor: pointer;
+        padding: 0.5rem 0;
+        margin: 2rem 0;
+        color: #fff;
+        font-size: 1.2rem;
+        border-radius: 2rem;
+        border: none;
+        position: relative;
+        background: #100720;
+        transition: 0.1s;
+      }
+      
+      button::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+        filter: blur(15px);
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      
+      button:hover {
+        transform: scale(0.9) rotate(3deg);
+        background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
+        transition: 0.5s;
       }
     `;
   }
@@ -65,7 +96,12 @@ class TicketForm extends LitElement {
 
     if (confirm("¿Estás seguro de que quieres generar el ticket?")) {
       this.dispatchEvent(new CustomEvent("form-submitted", {
-        detail: { name: this.name, plate: this.plate, dirigente: this.dirigente },
+        detail: {
+          name: this.name,
+          plate: this.plate,
+          dirigente: this.dirigente,
+          location: this.location
+        },
         bubbles: true,
         composed: true
       }));
@@ -125,7 +161,7 @@ class TicketForm extends LitElement {
           <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} />
         </div>
 
-        <button type="submit">Generar Ticket</button>
+        <button class="button" type="submit">Comprar Ticket</button>
       </form>
     `;
   }

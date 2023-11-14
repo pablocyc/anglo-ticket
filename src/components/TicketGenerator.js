@@ -15,6 +15,7 @@ class TicketGenerator extends LitElement {
       :host {
         --width-image: 329px;
         --height-image: 136px;
+        overflow: hidden;
       }
 
       .ticket {

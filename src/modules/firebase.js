@@ -1,17 +1,40 @@
-// Import the functions you need from the SDKs you need
+import { FIREBASE } from "../config.js";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBe9z4PstWKmm01BmsdFONZKM-_NmdnYuA",
-  authDomain: "anglo-ticket.firebaseapp.com",
-  projectId: "anglo-ticket",
-  storageBucket: "anglo-ticket.appspot.com",
-  messagingSenderId: "1017721602572",
-  appId: "1:1017721602572:web:eae7f3103e1b4332c52429"
-};
+import { getFirestore, addDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FIREBASE.firebaseConfig);
+
+const db = getFirestore(app);
+
+export const buyTicket = async (data) => {
+  // Crear una referencia a la colección de tickets
+  const ticketsCollectionRef = collection(db, "tickets");
+
+  // Crear una consulta para obtener todos los tickets y ordenarlos por timestamp
+  const q = query(ticketsCollectionRef, orderBy("timestamp", "desc"));
+
+  try {
+    // Ejecutar la consulta
+    const querySnapshot = await getDocs(q);
+
+    // Obtener el número de documentos y sumar uno para el nuevo ticket
+    const ticketNumber = querySnapshot.size + 1;
+
+    // Agregar el número de ticket y el timestamp al objeto de datos
+    const ticketData = {
+      ...data,
+      ticketNumber,
+      timestamp: new Date()
+    };
+
+    // Agregar el documento con el objeto de datos actualizado a Firestore
+    await addDoc(ticketsCollectionRef, ticketData);
+
+    // Devolver la referencia al documento creado
+    return ticketNumber;
+  } catch (error) {
+    console.error("Error al comprar ticket: ", error);
+    throw new Error("Error al comprar ticket");
+  }
+};
