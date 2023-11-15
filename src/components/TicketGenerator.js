@@ -20,13 +20,15 @@ class TicketGenerator extends LitElement {
 
       .ticket {
         position: relative;
-        background-image: url("images/ticket.svg");
-        background-repeat: no-repeat;
-        background-origin: content-box;
-        background-size: var(--width-image) var(--height-image);
         width: var(--width-image);
         height: var(--height-image);
       }
+
+      .image-ticket {
+        width: var(--width-image);
+        height: var(--height-image);
+      }
+
       .name, .plate, .plate-vt, .code, .code-vt, .barcode {
         position: absolute;
         font-size: 0.6rem;
@@ -68,10 +70,10 @@ class TicketGenerator extends LitElement {
       
       .name { bottom: 6%; left: 3.5%; font-family: Satoshi }
       .plate { top: 50%; left: 25.5%; }
-      .plate-vt { bottom: 46%; right: 2.8%; }
+      .plate-vt { bottom: 46%; right: 2.2%; }
       .code { bottom: 6%; left: 35%; }
       .code-vt { bottom: 22%; right: 8.5%; }
-      .barcode { top: 31%; right: -8.5%; }
+      .barcode { top: 42%; right: -8.5%; }
 
       .ticket .barcode {
         width: 30%;
@@ -104,12 +106,13 @@ class TicketGenerator extends LitElement {
   render() {
     return html`
       <div class="ticket">
+        <img src="images/ticket.svg" alt="ticket template" class="image-ticket">
         <div class="name">${this.name}</div>
         <div class="plate">${this.plate}</div>
         <div class="plate-vt">${this.plate}</div>
         <div class="code">${this.code}</div>
         <div class="code-vt">${this.code}</div>
-        <svg id="barcode" class="barcode"></svg>
+        <img id="barcode" class="barcode">
       </div>
     `;
   }
