@@ -1,3 +1,6 @@
+./src/config.js
+./src/data/diris.json
+
 # Logs
 logs
 *.log

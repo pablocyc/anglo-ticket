@@ -20,7 +20,7 @@ class CountdownTimer extends LitElement {
       .countdown {
         font-size: 1.2em;
         text-align: center;
-        color: rgb(250, 202, 21);
+        color: #faca15;
       }
 
       .box-timer {

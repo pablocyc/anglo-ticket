@@ -1,29 +1,54 @@
 [
   {
-    "name": "Alejandro Rivera"
+    "name": "Alejandro Rivera",
+    "phone": "76914701"
   },
   {
-    "name": "Antonio Rivera"
+    "name": "Antonio Rivera",
+    "phone": "76407248"
   },
   {
-    "name": "Anahi Soria"
+    "name": "Anahi Soria",
+    "phone": "70303607"
   },
   {
-    "name": "Irina Severich"
+    "name": "Eve Rivera",
+    "phone": "76961400"
   },
   {
-    "name": "Julio Lopez"
+    "name": "Irina Severich",
+    "phone": "72212188"
   },
   {
-    "name": "Mayerli Rivera"
+    "name": "Julio Lopez",
+    "phone": "74301184"
   },
   {
-    "name": "Pablo Cardozo"
+    "name": "Joel Valencia",
+    "phone": "79750262"
   },
   {
-    "name": "Ricardo Rojas"
+    "name": "Maritza Martinez",
+    "phone": "70781431"
   },
   {
-    "name": "Rodrigo Rocabado"
+    "name": "Mayerli Rivera",
+    "phone": "69499837"
+  },
+  {
+    "name": "Pablo Cardozo",
+    "phone": "72783090"
+  },
+  {
+    "name": "Ricardo Rojas",
+    "phone": "69509997"
+  },
+  {
+    "name": "Rodrigo Rocabado",
+    "phone": "70733312"
+  },
+  {
+    "name": "Stefany Soria",
+    "phone": "70733312"
   }
 ]

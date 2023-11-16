@@ -32,3 +32,18 @@ body {
   align-items: center;
   gap: 2rem;
 }
+
+.total-tickets {
+  margin: 0;
+  margin-top: 0.6rem;
+  color: white;
+  font-style: italic;
+  font-weight: 300;
+  text-align: center;
+
+  & span {
+    font-weight: 500;
+    color: #faca15;
+    font-size: 1.1rem;
+  }
+}

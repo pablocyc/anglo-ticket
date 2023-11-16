@@ -1,12 +1,24 @@
-import { buyTicket } from "./modules/firebase.js";
+import { getTicketNumber, buyTicket } from "./modules/firebase.js";
 import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
 import html2canvas from "html2canvas";
 
 const ticketElement = document.createElement("ticket-generator");
-const firstChild = document.querySelector("countdown-timer");
-firstChild.after(ticketElement);
+const header = document.querySelector("header");
+header.after(ticketElement);
+
+async function showTotalTickets() {
+  try {
+    const ticketNumber = await getTicketNumber();
+    const textTotalTickets = document.querySelector(".total-tickets");
+    textTotalTickets.innerHTML = `Total de Tickets Vendidos:  <span>${ticketNumber}</span>`;
+  } catch (error) {
+    console.error("Error al obtener el número total de tickets: ", error);
+  }
+}
+
+showTotalTickets();
 
 document.addEventListener("data-form", event => {
   const message = event.detail.message;

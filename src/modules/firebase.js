@@ -7,19 +7,26 @@ const app = initializeApp(FIREBASE.firebaseConfig);
 
 const db = getFirestore(app);
 
-export const buyTicket = async (data) => {
-  // Crear una referencia a la colección de tickets
+export const getTicketNumber = async () => {
   const ticketsCollectionRef = collection(db, "tickets");
-
-  // Crear una consulta para obtener todos los tickets y ordenarlos por timestamp
   const q = query(ticketsCollectionRef, orderBy("timestamp", "desc"));
 
   try {
-    // Ejecutar la consulta
     const querySnapshot = await getDocs(q);
 
+    return querySnapshot.size;
+  } catch (error) {
+    console.error("Error en la consulta ", error);
+    throw new Error("Error en la consulta de ticket");
+  }
+};
+
+export const buyTicket = async (data) => {
+  const ticketsCollectionRef = collection(db, "tickets");
+
+  try {
     // Obtener el número de documentos y sumar uno para el nuevo ticket
-    const ticketNumber = querySnapshot.size + 1;
+    const ticketNumber = await getTicketNumber() + 1;
 
     // Agregar el número de ticket y el timestamp al objeto de datos
     const ticketData = {
