@@ -1967,7 +1967,7 @@ This typically indicates that your device does not have a healthy Internet conne
         <div class="code-vt">${this.code}</div>
         <img id="barcode" class="barcode">
       </div>
-    `}}customElements.define("ticket-generator",b1);const H1=[{name:"Alejandro Rivera",phone:"76914701"},{name:"Antonio Rivera",phone:"76407248"},{name:"Anahi Soria",phone:"70303607"},{name:"Eve Rivera",phone:"76961400"},{name:"Erika Requena",phone:"77955226"},{name:"Irina Severich",phone:"72212188"},{name:"Julio Lopez",phone:"74301184"},{name:"Joel Valencia",phone:"79750262"},{name:"Maritza Martinez",phone:"70781431"},{name:"Mayerli Rivera",phone:"69499837"},{name:"Pablo Cardozo",phone:"72783090"},{name:"Ricardo Rojas",phone:"69509997"},{name:"Rodrigo Rocabado",phone:"70733312"},{name:"Stefany Soria",phone:"70733312"}];class R1 extends ht{static get properties(){return{name:{type:String},plate:{type:String}}}static get styles(){return lc`
+    `}}customElements.define("ticket-generator",b1);const H1=[{name:"Alejandro Rivera",phone:"76914701"},{name:"Antonio Rivera",phone:"76407248"},{name:"Anahi Soria",phone:"70303607"},{name:"Eve Rivera",phone:"76961400"},{name:"Irina Severich",phone:"72212188"},{name:"Julio Lopez",phone:"74301184"},{name:"Joel Valencia",phone:"79750262"},{name:"Maritza Martinez",phone:"70781431"},{name:"Mayerli Rivera",phone:"69499837"},{name:"Pablo Cardozo",phone:"72783090"},{name:"Ricardo Rojas",phone:"69509997"},{name:"Rodrigo Rocabado",phone:"70733312"},{name:"Stefany Soria",phone:"70733312"}];class R1 extends ht{static get properties(){return{name:{type:String},plate:{type:String}}}static get styles(){return lc`
       p {
         margin: 0;
       }
