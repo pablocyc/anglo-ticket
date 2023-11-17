@@ -11,6 +11,8 @@
   <meta property="og:url" content="https://pablocyc.github.io/anglo-ticket/" />
   <meta property="og:type" content="website" />
   <title>Ticket-ProJamboree</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogInByby1qYW1ib3JlZSIsCiAgInNob3J0X25hbWUiOiAicHJvamFtYm8iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tNzJ4NzIucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjcyeDcyIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tOTZ4OTYucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjk2eDk2IgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tMTQ0eDE0NC5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiMTQ0eDE0NCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaWNvbnMvYW5kcm9pZC1pY29uLTE5MngxOTIucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiCiAgICB9LAogICAgewogICAgICAic3JjIjogImljb25zL2FuZHJvaWQtaWNvbi01MTJ4NTEyLnBuZyIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIgogICAgfQogIF0sCiAgInRoZW1lX2NvbG9yIjogIiMyMzIzMjMiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiCn0=">
   
@@ -28,3 +30,9 @@
 </body>
 
 </html>
+estoy pensando utilizar un medidor de la marca Chint, el DSSU666, un arduino nano junto con una shield de data-logging,
+que cuenta con un rtc y un módulo de memoria microSD. Lo que pretendo es que el arduino haga lecturas cada cierto tiempo
+de todos los parámetros que tiene el medidor, luego que las estructure en un formato json, las vaya almacenando en la
+memoria y también que esa información se la envíe a un esp32 para que se encargue de llevarla a alguna base de datos.
+Finalmente crear una interfaz para el usuario que pueda ver fácilmente toda la información mediante gráficas,
+estadística, históricos, etc. Qué te parece la idea? Qué me recomendarías?
