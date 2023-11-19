@@ -2117,7 +2117,7 @@ https://sweetalert2.github.io/#ajax-request`),Sy(f),typeof f.title=="string"&&(f
 
         <div class="input-label">
           <label class="label-title" for="name">Nombre</label>
-          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
+          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} placeholder="Nombre del comprador"/>
         </div>
 
         <div class="input-label">
@@ -2133,7 +2133,7 @@ https://sweetalert2.github.io/#ajax-request`),Sy(f),typeof f.title=="string"&&(f
 
         <div class="input-label">
           <label class="label-title" for="location">Dirección de domicilio</label>
-          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} />
+          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} placeholder="Link del GoogleMaps"/>
         </div>
 
         <button class="button" type="submit">Comprar Ticket</button>
