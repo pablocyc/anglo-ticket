@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import diris from "../data/diris.json";
+import Swal from "sweetalert2";
 
 class TicketForm extends LitElement {
   static get properties() {
@@ -94,18 +95,27 @@ class TicketForm extends LitElement {
   handleSubmit(e) {
     e.preventDefault();
 
-    if (confirm("¿Estás seguro de que quieres generar el ticket?")) {
-      this.dispatchEvent(new CustomEvent("form-submitted", {
-        detail: {
-          name: this.name,
-          plate: this.plate,
-          dirigente: this.dirigente,
-          location: this.location
-        },
-        bubbles: true,
-        composed: true
-      }));
-    }
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¿Quieres generar el ticket?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, generar ticket"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dispatchEvent(new CustomEvent("form-submitted", {
+          detail: {
+            name: this.name,
+            plate: this.plate,
+            dirigente: this.dirigente,
+            location: this.location
+          },
+          bubbles: true,
+          composed: true
+        }));
+      }
+    });
   }
 
   handleInputChange(e) {
@@ -142,7 +152,7 @@ class TicketForm extends LitElement {
 
         <div class="input-label">
           <label class="label-title" for="name">Nombre</label>
-          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} />
+          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} placeholder="Nombre del comprador"/>
         </div>
 
         <div class="input-label">
@@ -158,7 +168,7 @@ class TicketForm extends LitElement {
 
         <div class="input-label">
           <label class="label-title" for="location">Dirección de domicilio</label>
-          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} />
+          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} placeholder="Link del GoogleMaps"/>
         </div>
 
         <button class="button" type="submit">Comprar Ticket</button>
