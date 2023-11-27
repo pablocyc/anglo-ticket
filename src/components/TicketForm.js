@@ -1,12 +1,14 @@
 import { LitElement, html, css } from "lit";
 import diris from "../data/diris.json";
 import Swal from "sweetalert2";
+import "ldrs/helix";
 
 class TicketForm extends LitElement {
   static get properties() {
     return {
       name: { type: String },
-      plate: { type: String }
+      plate: { type: String },
+      isLoading: { type: Boolean }
     };
   }
 
@@ -81,6 +83,23 @@ class TicketForm extends LitElement {
         background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
         transition: 0.5s;
       }
+
+      .overlay {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        font-weight: 700;
+        gap: 1rem;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
     `;
   }
 
@@ -90,6 +109,7 @@ class TicketForm extends LitElement {
     this.plate = "";
     this.dirigente = "";
     this.location = "";
+    this.isLoading = false;
   }
 
   handleSubmit(e) {
@@ -114,6 +134,8 @@ class TicketForm extends LitElement {
           bubbles: true,
           composed: true
         }));
+
+        this.isLoading = true;
       }
     });
   }
@@ -137,6 +159,18 @@ class TicketForm extends LitElement {
         <option value=${diri[data]}></option>
       `
     );
+  }
+
+  generateOverlay() {
+    if (this.isLoading) {
+      return html`
+        <div class="overlay">
+          <l-helix color="#ffdc02" size="100"></l-helix>
+          <p class="text-overlay">Generando Ticket...</p>
+        </div>
+      `;
+    }
+    return html``;
   }
 
   render() {
@@ -172,6 +206,7 @@ class TicketForm extends LitElement {
         </div>
 
         <button class="button" type="submit">Comprar Ticket</button>
+        ${this.generateOverlay()}
       </form>
     `;
   }

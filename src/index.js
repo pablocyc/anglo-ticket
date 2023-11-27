@@ -5,6 +5,7 @@ import "./components/TicketForm.js";
 import html2canvas from "html2canvas";
 
 const ticketElement = document.createElement("ticket-generator");
+const ticketForm = document.querySelector("ticket-form");
 const header = document.querySelector("header");
 header.after(ticketElement);
 
@@ -44,7 +45,8 @@ document.addEventListener("form-submitted", async event => {
         downloadLink.click();
         document.body.removeChild(downloadLink); // Limpieza después de la descarga
       });
-    }, 1500); // Ajusta este tiempo según la renderización del ticket
+      ticketForm.isLoading = false;
+    }, 2000); // Ajusta este tiempo según la renderización del ticket
   } catch (error) {
     console.error("Error al generar el ticket: ", error);
   }
