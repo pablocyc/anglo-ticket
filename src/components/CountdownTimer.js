@@ -68,7 +68,6 @@ class CountdownTimer extends LitElement {
     const { days, hours, minutes, seconds } = this.timeRemaining;
     return html`
       <div class="countdown">
-        <h2>ProJamboree</h2>
         <div class="box-timer">${days}d</div>
         :
         <div class="box-timer">${hours}h</div>

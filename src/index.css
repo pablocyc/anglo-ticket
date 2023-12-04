@@ -33,6 +33,25 @@ body {
   gap: 2rem;
 }
 
+.header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: #faca15;
+
+  & h1 {
+    margin: 0;
+    margin-top: 1.5rem;
+  }
+
+  & img {
+    position: absolute;
+    left: 0;
+    top: 45%;
+    margin-left: 1rem;
+  }
+}
+
 .total-tickets {
   margin: 0;
   margin-top: 0.6rem;
@@ -52,4 +71,8 @@ body {
   position: absolute;
   top: 50%;
   transform: translate(50%, 50%);
+}
+
+.map {
+  width: 100%;
 }

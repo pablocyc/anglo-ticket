@@ -20,6 +20,7 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.2",
     "firebase": "^10.6.0",
     "html2canvas": "^1.4.1",
     "jsbarcode": "^3.11.5",

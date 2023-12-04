@@ -3,10 +3,11 @@ import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
 import html2canvas from "html2canvas";
+import "./components/MyMap.js";
 
 const ticketElement = document.createElement("ticket-generator");
 const ticketForm = document.querySelector("ticket-form");
-const header = document.querySelector("header");
+const header = document.querySelector("section");
 header.after(ticketElement);
 
 async function showTotalTickets() {
