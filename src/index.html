@@ -21,15 +21,19 @@
 
 <body>
   <header class="header">
-    <img src="/images/icon-map.svg" alt="icon map">
+    <button class="btn-map" aria-label="Ver Mapa">
+      <img src="/images/icon-map.svg" alt="Icon map">
+    </button>
     <h1>ProJamboree</h1>
   </header>
   <section class="info-event">
     <countdown-timer eventDate="2023-12-10T12:00:00"></countdown-timer>
     <p class="total-tickets">Total de Tickets Vendidos: <span>0</span></p>
   </section>
-  <ticket-form></ticket-form>
-  <my-map class="map"></my-map>
+  <section class="ticket-section">
+    <ticket-form></ticket-form>
+  </section>
+  <my-map class="map hidden"></my-map>
 </body>
 
 </html>

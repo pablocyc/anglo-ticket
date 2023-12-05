@@ -14,6 +14,11 @@ class TicketForm extends LitElement {
 
   static get styles() {
     return css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
       p {
         margin: 0;
       }
@@ -124,9 +129,10 @@ class TicketForm extends LitElement {
       confirmButtonText: "Sí, generar ticket"
     }).then((result) => {
       if (result.isConfirmed) {
+        this.plate = "";
+        this.location = "";
         this.dispatchEvent(new CustomEvent("form-submitted", {
           detail: {
-            name: this.name,
             plate: this.plate,
             dirigente: this.dirigente,
             location: this.location
@@ -202,7 +208,7 @@ class TicketForm extends LitElement {
 
         <div class="input-label">
           <label class="label-title" for="location">Dirección de domicilio</label>
-          <input class="input" required id="location" name="location" type="url" .value=${this.location} @input=${this.handleInputChange} placeholder="Link del GoogleMaps"/>
+          <input class="input" required id="location" name="location" type="text" .value=${this.location} @input=${this.handleInputChange} placeholder="Coordenadas"/>
         </div>
 
         <button class="button" type="submit">Comprar Ticket</button>

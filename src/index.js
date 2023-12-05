@@ -1,4 +1,4 @@
-import { getTicketNumber, buyTicket } from "./modules/firebase.js";
+import { getTicketNumber, buyTicket, getAggregatedTickets } from "./modules/firebase.js";
 import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
@@ -7,8 +7,15 @@ import "./components/MyMap.js";
 
 const ticketElement = document.createElement("ticket-generator");
 const ticketForm = document.querySelector("ticket-form");
-const header = document.querySelector("section");
-header.after(ticketElement);
+const ticketSection = document.querySelector(".ticket-section");
+ticketSection.prepend(ticketElement);
+const mapComponent = document.querySelector("my-map");
+const btnMap = document.querySelector(".btn-map");
+
+const originLocation = {
+  lat: -17.389308130387093,
+  lng: -66.15370809325312
+};
 
 async function showTotalTickets() {
   try {
@@ -20,7 +27,39 @@ async function showTotalTickets() {
   }
 }
 
+async function loadMapWithData() {
+  const aggregatedData = await getAggregatedTickets();
+  mapComponent.tickets = formatDataForMap(aggregatedData);
+  mapComponent.originLocation = originLocation;
+  mapComponent.setData();
+}
+
 showTotalTickets();
+loadMapWithData();
+
+function formatDataForMap(aggregatedData) {
+  return Object.values(aggregatedData).map(data => {
+    let lat, lng;
+    if (data.location && data.location.includes(", ")) {
+      [lat, lng] = data.location.split(", ").map(coord => parseFloat(coord));
+      if (isNaN(lat) || isNaN(lng)) {
+        lat = originLocation.lat;
+        lng = originLocation.lng;
+      }
+    } else {
+      lat = originLocation.lat;
+      lng = originLocation.lng;
+    }
+
+    return {
+      name: data.name,
+      dirigente: data.dirigente,
+      location: { lat, lng },
+      pollo: data.pollo,
+      lechon: data.lechon
+    };
+  });
+}
 
 document.addEventListener("data-form", event => {
   const message = event.detail.message;
@@ -33,22 +72,37 @@ document.addEventListener("form-submitted", async event => {
     const ticketNumber = await buyTicket(msgForm);
 
     ticketElement.barcodeGenerator(ticketNumber.toString(), msgForm.dirigente);
-    // Esperar a que el componente ticket-generator se actualice con el nuevo ticket
+
     setTimeout(() => {
-      // Utilizar html2canvas para tomar una "captura de pantalla" del componente
       html2canvas(ticketElement.shadowRoot.querySelector(".ticket")).then(canvas => {
         // Crear una imagen a partir del canvas y forzar la descarga
         const image = canvas.toDataURL("image/png");
         const downloadLink = document.createElement("a");
         downloadLink.href = image;
         downloadLink.download = `Ticket-${ticketNumber}.png`;
-        document.body.appendChild(downloadLink); // Necesario para Firefox
+        document.body.appendChild(downloadLink);
         downloadLink.click();
-        document.body.removeChild(downloadLink); // Limpieza después de la descarga
+        document.body.removeChild(downloadLink);
       });
       ticketForm.isLoading = false;
     }, 2000); // Ajusta este tiempo según la renderización del ticket
   } catch (error) {
     console.error("Error al generar el ticket: ", error);
+  }
+});
+
+btnMap.addEventListener("click", () => {
+  const icon = btnMap.querySelector("img");
+
+  if (icon.src.includes("icon-map.svg")) {
+    icon.src = "/images/icon-ticket.svg";
+    ticketSection.classList.add("hidden");
+    mapComponent.classList.add("fade-in");
+    mapComponent.classList.remove("hidden");
+  } else {
+    icon.src = "/images/icon-map.svg";
+    ticketSection.classList.remove("hidden");
+    mapComponent.classList.remove("fade-in");
+    mapComponent.classList.add("hidden");
   }
 });

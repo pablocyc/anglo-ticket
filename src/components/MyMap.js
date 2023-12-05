@@ -1,32 +1,25 @@
 import { loader } from "../modules/googleMaps.js";
 import { LitElement, css, html } from "lit";
 
-const originLocation = { lat: -17.3908202, lng: -66.157956 };
-const locations = [
-  { lat: -17.3900043, lng: -66.1584115 },
-  { lat: -17.3823889, lng: -66.2665525 },
-  { lat: -17.3665224, lng: -66.1680659 },
-  { lat: -17.3982735, lng: -66.1692374 },
-  { lat: -17.3869915, lng: -66.2598139 },
-  { lat: -17.3932689, lng: -66.2417225 }
-];
-
 export class MyMap extends LitElement {
   static properties = {
+    originLocation: { type: Object },
+    tickets: { type: Array },
   };
 
+  constructor() {
+    super();
+    this.tickets = [];
+  }
+
   static styles = css`
-    :host {
-
-    }
-
     .map {
       width: 100%;
-      height: 400px;
+      height: 500px;
     }
   `;
 
-  firstUpdated() {
+  setData() {
     loader.load().then(() => {
       this.initMap();
     });
@@ -39,36 +32,73 @@ export class MyMap extends LitElement {
       zoom: 15,
     });
 
+    // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
+    // eslint-disable-next-line no-undef
     const directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(this.map);
 
-    const request = {
-      origin: originLocation, // Puede ser una coordenada o una dirección
-      destination: locations[2],
-      travelMode: google.maps.TravelMode.DRIVING // Puedes cambiar el modo (DRIVING, WALKING, BICYCLING, TRANSIT)
-    };
-
-    directionsService.route(request, (response, status) => {
-      if (status === "OK") {
-        directionsRenderer.setDirections(response);
-      } else {
-        // Manejar errores o rutas no encontradas
+    this.tickets.forEach(ticket => {
+      let iconUrl;
+      if (ticket.pollo > 0 && ticket.lechon > 0) {
+        iconUrl = "/images/icon-both.svg";
+      } else if (ticket.pollo > 0) {
+        iconUrl = "/images/icon-chicken.svg";
+      } else if (ticket.lechon > 0) {
+        iconUrl = "/images/icon-pig.svg";
       }
-    });
-    locations.forEach(location => {
       // eslint-disable-next-line no-undef
       const marker = new google.maps.Marker({
-        position: location,
+        position: ticket.location,
         map: this.map,
         icon: {
-          url: "/images/icon-chicken.svg",
+          url: iconUrl,
           // eslint-disable-next-line no-undef
           size: new google.maps.Size(40, 40),
+          // eslint-disable-next-line no-undef
           anchor: new google.maps.Point(20, 40)
         }
       });
+
+      marker.addListener("click", () => {
+        // eslint-disable-next-line no-undef
+        const infoWindow = new google.maps.InfoWindow({
+          content: this.infoContent(ticket.name, ticket.dirigente, ticket.pollo, ticket.lechon)
+        });
+        infoWindow.open(this.map, marker);
+
+        const request = {
+          origin: this.originLocation,
+          destination: marker.getPosition(),
+          // eslint-disable-next-line no-undef
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, (response, status) => {
+          if (status === "OK") {
+            directionsRenderer.setDirections(response);
+          } else {
+            // Manejar errores o rutas no encontradas
+          }
+        });
+      });
     });
+  }
+
+  infoContent(name, dirigente, pollo, lechon) {
+    return `
+      <style>
+        p {
+          margin: 0;
+        }
+      </style>
+      <div class="container">
+        <p class="text"><strong>Comprador: </strong>${name}</p>
+        <p class="text">Pollos: <strong>${pollo}</strong></p>
+        <p class="text">Cerdos: <strong>${lechon}</strong></p>
+        <p class="text"><strong>Dirigente: </strong>${dirigente}</p>
+      </div>
+    `;
   }
 
   render() {

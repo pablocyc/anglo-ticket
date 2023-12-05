@@ -2,7 +2,6 @@ import { FIREBASE } from "../config.js";
 import { initializeApp } from "firebase/app";
 import { getFirestore, addDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 
-// Initialize Firebase
 const app = initializeApp(FIREBASE.firebaseConfig);
 
 const db = getFirestore(app);
@@ -43,5 +42,41 @@ export const buyTicket = async (data) => {
   } catch (error) {
     console.error("Error al comprar ticket: ", error);
     throw new Error("Error al comprar ticket");
+  }
+};
+
+export const getAggregatedTickets = async () => {
+  const ticketsCollectionRef = collection(db, "tickets");
+  const q = query(ticketsCollectionRef);
+
+  try {
+    const querySnapshot = await getDocs(q);
+    const aggregatedData = {};
+
+    querySnapshot.forEach((doc) => {
+      const ticket = doc.data();
+      const key = ticket.location;
+
+      if (!aggregatedData[key]) {
+        aggregatedData[key] = {
+          name: ticket.name,
+          dirigente: ticket.dirigente,
+          location: ticket.location,
+          pollo: 0,
+          lechon: 0
+        };
+      }
+
+      if (ticket.plate === "Pollo al horno") {
+        aggregatedData[key].pollo++;
+      } else if (ticket.plate === "Lechon al horno") {
+        aggregatedData[key].lechon++;
+      }
+    });
+
+    return aggregatedData;
+  } catch (error) {
+    console.error("Error al obtener tickets: ", error);
+    throw new Error("Error al obtener tickets");
   }
 };
