@@ -2124,7 +2124,7 @@ https://sweetalert2.github.io/#ajax-request`),Ky(f),typeof f.title=="string"&&(f
         align-items: center;
         z-index: 1000;
       }
-    `}constructor(){super(),this.name="",this.plate="",this.dirigente="",this.location="",this.isLoading=!1}handleSubmit(A){A.preventDefault(),WS.fire({title:"¿Estás seguro?",text:"¿Quieres generar el ticket?",icon:"warning",showCancelButton:!0,cancelButtonColor:"#d33",confirmButtonText:"Sí, generar ticket"}).then(t=>{t.isConfirmed&&(this.plate="",this.location="",this.dispatchEvent(new CustomEvent("form-submitted",{detail:{plate:this.plate,dirigente:this.dirigente,location:this.location},bubbles:!0,composed:!0})),this.isLoading=!0)})}handleInputChange(A){const{name:t,value:r}=A.target,n=new CustomEvent("data-form",{detail:{from:"TicketForm",message:{[t]:r}},bubbles:!0,composed:!0});this.dispatchEvent(n),this[t]=r}getDiris(A){return jS.map(t=>qt`
+    `}constructor(){super(),this.name="",this.plate="",this.dirigente="",this.location="",this.isLoading=!1}handleSubmit(A){A.preventDefault(),WS.fire({title:"¿Estás seguro?",text:"¿Quieres generar el ticket?",icon:"warning",showCancelButton:!0,cancelButtonColor:"#d33",confirmButtonText:"Sí, generar ticket"}).then(t=>{t.isConfirmed&&(this.dispatchEvent(new CustomEvent("form-submitted",{detail:{plate:this.plate,dirigente:this.dirigente,location:this.location},bubbles:!0,composed:!0})),this.isLoading=!0,this.location="")})}handleInputChange(A){const{name:t,value:r}=A.target,n=new CustomEvent("data-form",{detail:{from:"TicketForm",message:{[t]:r}},bubbles:!0,composed:!0});this.dispatchEvent(n),this[t]=r}getDiris(A){return jS.map(t=>qt`
         <option value=${t[A]}></option>
       `)}generateOverlay(){return this.isLoading?qt`
         <div class="overlay">
@@ -2135,7 +2135,7 @@ https://sweetalert2.github.io/#ajax-request`),Ky(f),typeof f.title=="string"&&(f
       <form class="form" @submit=${this.handleSubmit}>
         <div class="input-label">
           <label class="label-title" for="dirigente">Dirigente</label>
-          <input class="input" required type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
+          <input class="input" required id="dirigente" type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
           <datalist id="diris">
             ${this.getDiris("name")}
           </datalist>
@@ -2143,7 +2143,7 @@ https://sweetalert2.github.io/#ajax-request`),Ky(f),typeof f.title=="string"&&(f
 
         <div class="input-label">
           <label class="label-title" for="name">Nombre</label>
-          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} placeholder="Nombre del comprador"/>
+          <input class="input name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} placeholder="Nombre del comprador"/>
         </div>
 
         <div class="input-label">
