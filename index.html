@@ -17,16 +17,25 @@
   <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogInByby1qYW1ib3JlZSIsCiAgInNob3J0X25hbWUiOiAicHJvamFtYm8iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tNzJ4NzIucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjcyeDcyIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tOTZ4OTYucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjk2eDk2IgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJpY29ucy9hbmRyb2lkLWljb24tMTQ0eDE0NC5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiMTQ0eDE0NCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaWNvbnMvYW5kcm9pZC1pY29uLTE5MngxOTIucG5nIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiCiAgICB9LAogICAgewogICAgICAic3JjIjogImljb25zL2FuZHJvaWQtaWNvbi01MTJ4NTEyLnBuZyIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIgogICAgfQogIF0sCiAgInRoZW1lX2NvbG9yIjogIiMyMzIzMjMiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiCn0=">
   
   
-  <script type="module" crossorigin src="/anglo-ticket/index-8b85b8ce.js"></script>
-  <link rel="stylesheet" href="/anglo-ticket/index-650532ab.css">
+  <script type="module" crossorigin src="/anglo-ticket/index-c5d44008.js"></script>
+  <link rel="stylesheet" href="/anglo-ticket/index-9b7b1588.css">
 </head>
 
 <body>
-  <header>
+  <header class="header">
+    <button class="btn-map" aria-label="Ver Mapa">
+      <img src="/anglo-ticket/images/icon-map.svg" alt="Icon map">
+    </button>
+    <h1>ProJamboree</h1>
+  </header>
+  <section class="info-event">
     <countdown-timer eventDate="2023-12-10T12:00:00"></countdown-timer>
     <p class="total-tickets">Total de Tickets Vendidos: <span>0</span></p>
-  </header>
-  <ticket-form></ticket-form>
+  </section>
+  <section class="ticket-section">
+    <ticket-form></ticket-form>
+  </section>
+  <my-map class="map hidden"></my-map>
 </body>
 
 </html>
