@@ -95,12 +95,12 @@ btnMap.addEventListener("click", () => {
   const icon = btnMap.querySelector("img");
 
   if (icon.src.includes("icon-map.svg")) {
-    icon.src = "/images/icon-ticket.svg";
+    icon.src = "./images/icon-ticket.svg";
     ticketSection.classList.add("hidden");
     mapComponent.classList.add("fade-in");
     mapComponent.classList.remove("hidden");
   } else {
-    icon.src = "/images/icon-map.svg";
+    icon.src = "./images/icon-map.svg";
     ticketSection.classList.remove("hidden");
     mapComponent.classList.remove("fade-in");
     mapComponent.classList.add("hidden");

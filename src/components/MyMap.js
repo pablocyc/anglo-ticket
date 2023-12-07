@@ -41,11 +41,11 @@ export class MyMap extends LitElement {
     this.tickets.forEach(ticket => {
       let iconUrl;
       if (ticket.pollo > 0 && ticket.lechon > 0) {
-        iconUrl = "/images/icon-both.svg";
+        iconUrl = "./images/icon-both.svg";
       } else if (ticket.pollo > 0) {
-        iconUrl = "/images/icon-chicken.svg";
+        iconUrl = "./images/icon-chicken.svg";
       } else if (ticket.lechon > 0) {
-        iconUrl = "/images/icon-pig.svg";
+        iconUrl = "./images/icon-pig.svg";
       }
       // eslint-disable-next-line no-undef
       const marker = new google.maps.Marker({

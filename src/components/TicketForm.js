@@ -1,14 +1,17 @@
 import { LitElement, html, css } from "lit";
 import diris from "../data/diris.json";
 import Swal from "sweetalert2";
-import "ldrs/helix";
+import { helix } from "ldrs";
+
+helix.register();
 
 class TicketForm extends LitElement {
   static get properties() {
     return {
       name: { type: String },
       plate: { type: String },
-      isLoading: { type: Boolean }
+      isLoading: { type: Boolean },
+      showTooltip: { type: Boolean }
     };
   }
 
@@ -56,6 +59,45 @@ class TicketForm extends LitElement {
 
       .plates {
         text-align: center;
+      }
+
+      .tooltip {
+        background-color: #ffdd57;
+        color: #333;
+        text-align: center;
+        text-wrap: nowrap;
+        border-radius: 6px;
+        padding: 8px;
+        position: absolute;
+        z-index: 1;
+        bottom: -80%;
+        left: 30%;
+        margin-left: -60px; /* Cambiar según el tamaño del tooltip */
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+
+        /* Animación */
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .input-dirigente {
+        position: relative;
+      }
+
+      .tooltip:after {
+        content: "";
+        position: absolute;
+        bottom: 25px;
+        left: 15%;
+        margin-left: -8px;
+        width: 18px;
+        height: 18px;
+        background: #ffdd57;
+        transform: rotate(45deg);
+      }
+
+      .tooltip.show {
+        opacity: 1;
       }
 
       button {
@@ -111,14 +153,25 @@ class TicketForm extends LitElement {
   constructor() {
     super();
     this.name = "";
+    this.phone = "";
     this.plate = "";
     this.dirigente = "";
     this.location = "";
     this.isLoading = false;
+    this.showTooltip = false;
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
+    // Verifica si el dirigente está en la lista
+    const dirigenteValido = diris.some(diri => diri.name === this.dirigente);
+    if (!dirigenteValido) {
+      this.showTooltip = true;
+      // Oculta el tooltip después de un tiempo
+      setTimeout(() => { this.showTooltip = false; }, 3000);
+      return;
+    }
 
     Swal.fire({
       title: "¿Estás seguro?",
@@ -129,10 +182,10 @@ class TicketForm extends LitElement {
       confirmButtonText: "Sí, generar ticket"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.plate = "";
-        this.location = "";
         this.dispatchEvent(new CustomEvent("form-submitted", {
           detail: {
+            name: this.name,
+            phone: this.phone,
             plate: this.plate,
             dirigente: this.dirigente,
             location: this.location
@@ -182,33 +235,84 @@ class TicketForm extends LitElement {
   render() {
     return html`
       <form class="form" @submit=${this.handleSubmit}>
-        <div class="input-label">
+        <div class="input-label input-dirigente">
           <label class="label-title" for="dirigente">Dirigente</label>
-          <input class="input" required type="text" list="diris" name="dirigente" .value=${this.dirigente} @input=${this.handleInputChange}>
+          <input
+            required
+            type="text"
+            class="input"
+            id="dirigente"
+            list="diris"
+            name="dirigente"
+            .value=${this.dirigente}
+            @input=${this.handleInputChange}>
           <datalist id="diris">
             ${this.getDiris("name")}
           </datalist>
+          ${this.showTooltip ? html`<div class="tooltip show">Seleccione un dirigente de la lista</div>` : null}
         </div>
-
         <div class="input-label">
           <label class="label-title" for="name">Nombre</label>
-          <input class="input" class="name" required id="name" name="name" type="text" .value=${this.name} @input=${this.handleInputChange} placeholder="Nombre del comprador"/>
+          <input
+            required
+            type="text"
+            class="input name"
+            id="name"
+            name="name"
+            .value=${this.name}
+            @input=${this.handleInputChange}
+            placeholder="Nombre"/>
+        </div>
+        <div class="input-label">
+          <label class="label-title" for="phone">Teléfono</label>
+          <input
+            required
+            type="tel"
+            class="input phone"
+            id="phone"
+            name="phone"
+            .value=${this.phone}
+            @input=${this.handleInputChange}
+            placeholder="Teléfono"/>
+        </div>
+
         </div>
 
         <div class="input-label">
           <p class="label-title">Seleccione su plato</p>
           <div class="plates">
-            <input required id="chicken" name="plate" type="radio" value="Pollo al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Pollo"} />
+            <input
+              required
+              type="radio"
+              id="chicken"
+              name="plate"
+              value="Pollo al horno"
+              @change=${this.handleInputChange}
+              ?checked=${this.plate === "Pollo"} />
             <label for="chicken">Pollo</label>
 
-            <input id="pork" name="plate" type="radio" value="Lechon al horno" @change=${this.handleInputChange} ?checked=${this.plate === "Lechon"} />
+            <input
+              type="radio"
+              id="pork"
+              name="plate"
+              value="Lechon al horno"
+              @change=${this.handleInputChange}
+              ?checked=${this.plate === "Lechon"} />
             <label for="pork">Lechón</label>
           </div>
         </div>
 
         <div class="input-label">
           <label class="label-title" for="location">Dirección de domicilio</label>
-          <input class="input" required id="location" name="location" type="text" .value=${this.location} @input=${this.handleInputChange} placeholder="Coordenadas"/>
+          <input
+            required
+            class="input"
+            id="location"
+            name="location"
+            type="text"
+            .value=${this.location}
+            @input=${this.handleInputChange}
+            placeholder="Coordenadas"/>
         </div>
 
         <button class="button" type="submit">Comprar Ticket</button>
