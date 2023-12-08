@@ -17,8 +17,8 @@
   <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogInByby1qYW1ib3JlZSIsCiAgInNob3J0X25hbWUiOiAicHJvamFtYm8iLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICIuL2ljb25zL2FuZHJvaWQtaWNvbi03Mng3Mi5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiNzJ4NzIiCiAgICB9LAogICAgewogICAgICAic3JjIjogIi4vaWNvbnMvYW5kcm9pZC1pY29uLTk2eDk2LnBuZyIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJzaXplcyI6ICI5Nng5NiIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiLi9pY29ucy9hbmRyb2lkLWljb24tMTQ0eDE0NC5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiMTQ0eDE0NCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiLi9pY29ucy9hbmRyb2lkLWljb24tMTkyeDE5Mi5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiLi9pY29ucy9hbmRyb2lkLWljb24tNTEyeDUxMi5wbmciLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIKICAgIH0KICBdLAogICJ0aGVtZV9jb2xvciI6ICIjMjMyMzIzIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIgp9">
   
   
-  <script type="module" crossorigin src="/anglo-ticket/index-ac3ff719.js"></script>
-  <link rel="stylesheet" href="/anglo-ticket/index-1b7de81a.css">
+  <script type="module" crossorigin src="/anglo-ticket/index-ec16ef6c.js"></script>
+  <link rel="stylesheet" href="/anglo-ticket/index-731e0c0f.css">
 </head>
 
 <body>
@@ -30,12 +30,15 @@
   </header>
   <section class="info-event">
     <countdown-timer eventDate="2023-12-10T12:00:00"></countdown-timer>
-    <p class="total-tickets">Total de Tickets Vendidos: <span>0</span></p>
+    <p class="total-tickets">Total de Tickets Vendidos: <span>0</span> - 0Bs.</p>
   </section>
   <section class="ticket-section">
     <ticket-form></ticket-form>
   </section>
-  <my-map class="map hidden"></my-map>
+  <section class="map-section hidden">
+    <my-map class="map"></my-map>
+    <info-ticket></info-ticket>
+  </section>
 </body>
 
 </html>
