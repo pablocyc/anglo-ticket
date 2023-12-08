@@ -6,6 +6,19 @@ const app = initializeApp(FIREBASE.firebaseConfig);
 
 const db = getFirestore(app);
 
+export const getTickets = async () => {
+  const ticketsCollectionRef = collection(db, "tickets");
+  const q = query(ticketsCollectionRef);
+
+  try {
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (error) {
+    console.error("Error en la consulta ", error);
+    throw new Error("Error en la consulta de tickets");
+  }
+};
+
 export const getTicketNumber = async () => {
   const ticketsCollectionRef = collection(db, "tickets");
   const q = query(ticketsCollectionRef, orderBy("timestamp", "desc"));
@@ -63,7 +76,8 @@ export const getAggregatedTickets = async () => {
           dirigente: ticket.dirigente,
           location: ticket.location,
           pollo: 0,
-          lechon: 0
+          lechon: 0,
+          phone: ticket.phone,
         };
       }
 

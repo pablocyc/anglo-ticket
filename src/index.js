@@ -2,13 +2,15 @@ import { getTicketNumber, buyTicket, getAggregatedTickets } from "./modules/fire
 import "./components/CountdownTimer.js";
 import "./components/TicketGenerator.js";
 import "./components/TicketForm.js";
-import html2canvas from "html2canvas";
 import "./components/MyMap.js";
+import "./components/InfoTicket.js";
+import html2canvas from "html2canvas";
 
 const ticketElement = document.createElement("ticket-generator");
 const ticketForm = document.querySelector("ticket-form");
 const ticketSection = document.querySelector(".ticket-section");
 ticketSection.prepend(ticketElement);
+const mapSection = document.querySelector(".map-section");
 const mapComponent = document.querySelector("my-map");
 const btnMap = document.querySelector(".btn-map");
 
@@ -21,7 +23,10 @@ async function showTotalTickets() {
   try {
     const ticketNumber = await getTicketNumber();
     const textTotalTickets = document.querySelector(".total-tickets");
-    textTotalTickets.innerHTML = `Total de Tickets Vendidos:  <span>${ticketNumber}</span>`;
+    textTotalTickets.innerHTML =
+      `Total de Tickets Vendidos:  <span>${ticketNumber}</span>
+       - <img src="/images/icon-cash.svg" alt="icon cash">
+       <span>${ticketNumber * 30}Bs.</span>`;
   } catch (error) {
     console.error("Error al obtener el número total de tickets: ", error);
   }
@@ -56,7 +61,8 @@ function formatDataForMap(aggregatedData) {
       dirigente: data.dirigente,
       location: { lat, lng },
       pollo: data.pollo,
-      lechon: data.lechon
+      lechon: data.lechon,
+      phone: data.phone
     };
   });
 }
@@ -97,12 +103,12 @@ btnMap.addEventListener("click", () => {
   if (icon.src.includes("icon-map.svg")) {
     icon.src = "./images/icon-ticket.svg";
     ticketSection.classList.add("hidden");
-    mapComponent.classList.add("fade-in");
-    mapComponent.classList.remove("hidden");
+    mapSection.classList.add("fade-in");
+    mapSection.classList.remove("hidden");
   } else {
     icon.src = "./images/icon-map.svg";
     ticketSection.classList.remove("hidden");
-    mapComponent.classList.remove("fade-in");
-    mapComponent.classList.add("hidden");
+    mapSection.classList.remove("fade-in");
+    mapSection.classList.add("hidden");
   }
 });

@@ -63,7 +63,7 @@ export class MyMap extends LitElement {
       marker.addListener("click", () => {
         // eslint-disable-next-line no-undef
         const infoWindow = new google.maps.InfoWindow({
-          content: this.infoContent(ticket.name, ticket.dirigente, ticket.pollo, ticket.lechon)
+          content: this.infoContent(ticket.name, ticket.dirigente, ticket.pollo, ticket.lechon, ticket.phone)
         });
         infoWindow.open(this.map, marker);
 
@@ -85,7 +85,7 @@ export class MyMap extends LitElement {
     });
   }
 
-  infoContent(name, dirigente, pollo, lechon) {
+  infoContent(name, dirigente, pollo, lechon, phone) {
     return `
       <style>
         p {
@@ -97,6 +97,7 @@ export class MyMap extends LitElement {
         <p class="text">Pollos: <strong>${pollo}</strong></p>
         <p class="text">Cerdos: <strong>${lechon}</strong></p>
         <p class="text"><strong>Dirigente: </strong>${dirigente}</p>
+        <p class="text">Teléfono: <strong>${phone ?? 0}</strong></p>
       </div>
     `;
   }
