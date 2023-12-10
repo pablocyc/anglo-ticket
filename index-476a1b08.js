@@ -2187,7 +2187,7 @@ https://sweetalert2.github.io/#ajax-request`),Xy(f),typeof f.title=="string"&&(f
         align-items: center;
         z-index: 1000;
       }
-    `}constructor(){super(),this.name="",this.phone="",this.plate="",this.dirigente="",this.location="",this.isLoading=!1,this.showTooltip=!1}handleSubmit(A){if(A.preventDefault(),!ag.some(r=>r.name===this.dirigente)){this.showTooltip=!0,setTimeout(()=>{this.showTooltip=!1},3e3);return}ZS.fire({title:"¿Estás seguro?",text:"¿Quieres generar el ticket?",icon:"warning",showCancelButton:!0,cancelButtonColor:"#d33",confirmButtonText:"Sí, generar ticket"}).then(r=>{r.isConfirmed&&(this.dispatchEvent(new CustomEvent("form-submitted",{detail:{name:this.name,phone:this.phone,plate:this.plate,dirigente:this.dirigente,location:this.location},bubbles:!0,composed:!0})),this.isLoading=!0)})}handleInputChange(A){const{name:t,value:r}=A.target,n=new CustomEvent("data-form",{detail:{from:"TicketForm",message:{[t]:r}},bubbles:!0,composed:!0});this.dispatchEvent(n),this[t]=r}getDiris(A){return ag.map(t=>Me`
+    `}constructor(){super(),this.name="",this.phone="",this.plate="",this.dirigente="",this.location="",this.isLoading=!1,this.showTooltip=!1}handleSubmit(A){if(A.preventDefault(),!ag.some(r=>r.name===this.dirigente)){this.showTooltip=!0,setTimeout(()=>{this.showTooltip=!1},3e3);return}ZS.fire({title:"Tickets Agotados",text:"Lo siento, ya no puedes generar más tickets",icon:"error"})}handleInputChange(A){const{name:t,value:r}=A.target,n=new CustomEvent("data-form",{detail:{from:"TicketForm",message:{[t]:r}},bubbles:!0,composed:!0});this.dispatchEvent(n),this[t]=r}getDiris(A){return ag.map(t=>Me`
         <option value=${t[A]}></option>
       `)}generateOverlay(){return this.isLoading?Me`
         <div class="overlay">
